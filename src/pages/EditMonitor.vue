@@ -32,6 +32,9 @@
                                     <option value="steam">
                                         Steam Game Server
                                     </option>
+                                    <option value="grpc">
+                                        gRPC Server
+                                    </option>
                                 </select>
                             </div>
 
@@ -42,9 +45,15 @@
                             </div>
 
                             <!-- URL -->
-                            <div v-if="monitor.type === 'http' || monitor.type === 'keyword' " class="my-3">
+                            <div v-if="monitor.type === 'http' || monitor.type === 'keyword' || monitor.type === 'grpc'" class="my-3">
                                 <label for="url" class="form-label">{{ $t("URL") }}</label>
                                 <input id="url" v-model="monitor.url" type="url" class="form-control" pattern="https?://.+" required>
+                            </div>
+
+                            <!-- Service Method -->
+                            <div v-if="monitor.type === 'grpc'" class="my-3">
+                                <label for="service_method" class="form-label">{{ $t("Service Method") }}</label>
+                                <input id="service_method" v-model="monitor.service_method" type="url" class="form-control" required>
                             </div>
 
                             <!-- Push URL -->

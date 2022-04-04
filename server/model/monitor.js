@@ -83,6 +83,7 @@ class Monitor extends BeanModel {
             pushToken: this.pushToken,
             notificationIDList,
             tags: tags,
+            service_method: this.service_method,
         };
     }
 
@@ -367,6 +368,12 @@ class Monitor extends BeanModel {
                     } else {
                         throw new Error("Server not found on Steam");
                     }
+
+                } else if (this.type === "grpc") {
+                    let response = cy.exec('grpcurl --plaintext ' + this.hostname + ' ' + this.service_method)
+                    if (response.code() === 0){
+                      bean.status = UP;
+                  }
 
                 } else {
                     bean.msg = "Unknown Monitor Type";
